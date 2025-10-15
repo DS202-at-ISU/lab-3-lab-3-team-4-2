@@ -185,10 +185,22 @@ possible.
 
 > Quote the statement you are planning to fact-check.
 
+Grace’s Quote:
+
+Jyotika’s Quote:
+
+Alexander’s Quote:
+
 ### Include the code
 
 Make sure to include the code to derive the (numeric) fact for the
 statement
+
+Grace’s Code:
+
+Jyotika’s Code:
+
+Alexander’s Code:
 
 ### Include your answer
 
@@ -197,3 +209,9 @@ fact-checking endeavor.
 
 Upload your changes to the repository. Discuss and refine answers as a
 team.
+
+Grace’s Discussion:
+
+Jyotika’s Discussion:
+
+Alexander’s Discussion:
