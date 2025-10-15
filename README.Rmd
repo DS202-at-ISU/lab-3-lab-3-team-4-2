@@ -131,6 +131,29 @@ total_returns
 
 Alexander's Code:
 
+```{r}
+years = max(av$Years.since.joining)
+
+filter(av, Years.since.joining == 115)
+
+filter(av, Years.since.joining < 115)
+
+dc <- deaths |>
+  filter(Death != "")
+
+dc2 <- dc |>
+  group_by(URL) |>
+  summarise(total_deaths = sum(Death == "YES"))
+
+td <- sum(dc2$total_deaths)
+
+mpd = (12 * years) / td
+
+mpd53 = (12 * 53) / td
+
+mpd53
+```
+
 ### Include your answer
 
 Include at least one sentence discussing the result of your fact-checking endeavor.
