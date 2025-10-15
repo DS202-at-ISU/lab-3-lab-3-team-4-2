@@ -87,15 +87,26 @@ library(tidyverse)
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 ``` r
-av |>
+av_new <- av |>
   pivot_longer(
-    Death1:Death5,
-    names_to = "Time",
+    c(Death1, Death2, Death3, Death4, Death5),
+    names_to = "Death_Time",
     values_to = "Died"
-  )
+  ) |>
+  mutate(Death_Time = parse_number(Death_Time))
+
+av_new <- av_new |>
+  pivot_longer(
+    c(Return1, Return2, Return3, Return4, Return5),
+    names_to = "Return_Time",
+    values_to = "Return"
+  ) |>
+  mutate(Return_Time = parse_number(Return_Time))
+
+av_new
 ```
 
-    ## # A tibble: 1,557 × 14
+    ## # A tibble: 4,325 × 15
     ##    URL                Name.Alias Appearances Current. Gender Probationary.Introl
     ##    <chr>              <chr>            <int> <chr>    <chr>  <chr>              
     ##  1 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
@@ -107,11 +118,11 @@ av |>
     ##  7 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
     ##  8 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
     ##  9 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ## 10 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
-    ## # ℹ 1,547 more rows
-    ## # ℹ 8 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
-    ## #   Years.since.joining <int>, Honorary <chr>, Return5 <chr>, Notes <chr>,
-    ## #   Time <chr>, Died <chr>
+    ## 10 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ## # ℹ 4,315 more rows
+    ## # ℹ 9 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
+    ## #   Years.since.joining <int>, Honorary <chr>, Notes <chr>, Death_Time <dbl>,
+    ## #   Died <chr>, Return_Time <dbl>, Return <chr>
 
 Similarly, deal with the returns of characters.
 
