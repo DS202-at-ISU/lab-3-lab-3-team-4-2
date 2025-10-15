@@ -77,8 +77,8 @@ library(tidyverse)
 
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-    ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-    ## ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+    ## ✔ forcats   1.0.1     ✔ stringr   1.5.1
+    ## ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
     ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
     ## ✔ purrr     1.1.0     
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -189,6 +189,10 @@ possible.
 
 Grace’s Quote:
 
+“Out of 173 listed Avengers, my analysis found that 69 had died at least
+one time after they joined the team. That’s about 40 percent of all
+people who have ever signed on to the team.”
+
 Jyotika’s Quote:
 
 Alexander’s Quote:
@@ -199,6 +203,20 @@ Make sure to include the code to derive the (numeric) fact for the
 statement
 
 Grace’s Code:
+
+``` r
+library(dplyr)
+
+av %>%
+  summarise(
+    total_avengers = n(),
+    total_died = sum(Death1 == "YES", na.rm = TRUE),
+    percent_died = (total_died / total_avengers) * 100
+  )
+```
+
+    ##   total_avengers total_died percent_died
+    ## 1            173         69     39.88439
 
 Jyotika’s Code:
 
@@ -213,6 +231,12 @@ Upload your changes to the repository. Discuss and refine answers as a
 team.
 
 Grace’s Discussion:
+
+After running the code, I found that 69 of 173 Avengers have died at
+least once, giving a mortality rate of about 39.9%. This confirms
+FiveThirtyEight’s statement that approximately 40 percent of Avengers
+have died after joining the team. The numbers in the dataset align
+closely with the article’s findings, validating its analysis.
 
 Jyotika’s Discussion:
 
