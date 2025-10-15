@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/LsTaLPbx)
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
@@ -71,6 +70,48 @@ replaced by two columns: Time, and Death. Time should be a number
 between 1 and 5 (look into the function `parse_number`); Death is a
 categorical variables with values “yes”, “no” and ““. Call the resulting
 data set `deaths`.
+
+``` r
+library(tidyverse)
+```
+
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+    ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+    ## ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+    ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+    ## ✔ purrr     1.1.0     
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+``` r
+av |>
+  pivot_longer(
+    Death1:Death5,
+    names_to = "Time",
+    values_to = "Died"
+  )
+```
+
+    ## # A tibble: 1,557 × 14
+    ##    URL                Name.Alias Appearances Current. Gender Probationary.Introl
+    ##    <chr>              <chr>            <int> <chr>    <chr>  <chr>              
+    ##  1 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  2 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  3 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  4 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  5 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  6 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  7 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  8 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  9 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ## 10 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ## # ℹ 1,547 more rows
+    ## # ℹ 8 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
+    ## #   Years.since.joining <int>, Honorary <chr>, Return5 <chr>, Notes <chr>,
+    ## #   Time <chr>, Died <chr>
 
 Similarly, deal with the returns of characters.
 
