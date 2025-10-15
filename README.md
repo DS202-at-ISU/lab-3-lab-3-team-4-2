@@ -77,8 +77,8 @@ library(tidyverse)
 
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-    ## ✔ forcats   1.0.1     ✔ stringr   1.5.1
-    ## ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
+    ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+    ## ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
     ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
     ## ✔ purrr     1.1.0     
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -189,17 +189,15 @@ possible.
 
 Grace’s Quote:
 
-<<<<<<< HEAD
-Jyotika’s Quote: “I counted 89 total deaths — some unlucky Avengers
-(Like Mar-Vell and Hawkeye) are basically Meat Loaf with an E-ZPass —
-and on 57 occasions the individual made a comeback.”
-=======
 “Out of 173 listed Avengers, my analysis found that 69 had died at least
 one time after they joined the team. That’s about 40 percent of all
 people who have ever signed on to the team.”
 
 Jyotika’s Quote:
->>>>>>> a1a4743d42efd9d9ba8011e66e6b7ada980c4457
+
+“I counted 89 total deaths — some unlucky Avengers (Like Mar-Vell and
+Hawkeye) are basically Meat Loaf with an E-ZPass — and on 57 occasions
+the individual made a comeback.”
 
 Alexander’s Quote:
 
@@ -241,7 +239,7 @@ total_deaths
     ## # A tibble: 1 × 1
     ##   count_deaths
     ##          <int>
-    ## 1          145
+    ## 1           89
 
 ``` r
 total_returns
@@ -250,7 +248,7 @@ total_returns
     ## # A tibble: 1 × 1
     ##   count_returns
     ##           <int>
-    ## 1            77
+    ## 1            57
 
 Alexander’s Code:
 
