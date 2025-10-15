@@ -87,26 +87,21 @@ library(tidyverse)
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 ``` r
-av_new <- av |>
+deaths <- av |>
   pivot_longer(
-    c(Death1, Death2, Death3, Death4, Death5),
-    names_to = "Death_Time",
-    values_to = "Died"
+    Death1:Death5,
+    names_to = "Time",
+    values_to = "Death"
   ) |>
-  mutate(Death_Time = parse_number(Death_Time))
+  mutate(
+    Time = parse_number(Time),
+    Death = as.factor(Death)
+  )
 
-av_new <- av_new |>
-  pivot_longer(
-    c(Return1, Return2, Return3, Return4, Return5),
-    names_to = "Return_Time",
-    values_to = "Return"
-  ) |>
-  mutate(Return_Time = parse_number(Return_Time))
-
-av_new
+deaths
 ```
 
-    ## # A tibble: 4,325 × 15
+    ## # A tibble: 1,557 × 14
     ##    URL                Name.Alias Appearances Current. Gender Probationary.Introl
     ##    <chr>              <chr>            <int> <chr>    <chr>  <chr>              
     ##  1 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
@@ -118,13 +113,46 @@ av_new
     ##  7 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
     ##  8 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
     ##  9 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ## 10 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ## # ℹ 4,315 more rows
-    ## # ℹ 9 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
-    ## #   Years.since.joining <int>, Honorary <chr>, Notes <chr>, Death_Time <dbl>,
-    ## #   Died <chr>, Return_Time <dbl>, Return <chr>
+    ## 10 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ## # ℹ 1,547 more rows
+    ## # ℹ 8 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
+    ## #   Years.since.joining <int>, Honorary <chr>, Return5 <chr>, Notes <chr>,
+    ## #   Time <dbl>, Death <fct>
 
 Similarly, deal with the returns of characters.
+
+``` r
+returns <- av |>
+  pivot_longer(
+    Return1:Return5,
+    names_to = "Time",
+    values_to = "Return"
+  ) |>
+  mutate(
+    Time = parse_number(Time),
+    Return = as.factor(Return)
+  )
+
+returns
+```
+
+    ## # A tibble: 1,557 × 14
+    ##    URL                Name.Alias Appearances Current. Gender Probationary.Introl
+    ##    <chr>              <chr>            <int> <chr>    <chr>  <chr>              
+    ##  1 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  2 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  3 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  4 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  5 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  6 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  7 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  8 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  9 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ## 10 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ## # ℹ 1,547 more rows
+    ## # ℹ 8 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
+    ## #   Years.since.joining <int>, Honorary <chr>, Death1 <chr>, Notes <chr>,
+    ## #   Time <dbl>, Return <fct>
 
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
