@@ -270,8 +270,9 @@ closely with the article’s findings, validating its analysis.
 
 Jyotika’s Discussion:
 
-It seems the total deaths are 145 and from this total deaths and there
-were 77 returns which means the article is incorrect in calculating the
-numbers. This quote is incorrect upon analysis.
+I filtered and calculated the total deaths of the Avengers and then
+calculated the total returns of the individual. It seems the total
+deaths are 89 and there were 57 returns, which means upon analysis, the
+quote is correct.
 
 Alexander’s Discussion:
