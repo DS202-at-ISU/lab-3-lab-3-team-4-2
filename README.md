@@ -187,7 +187,9 @@ possible.
 
 Grace’s Quote:
 
-Jyotika’s Quote:
+Jyotika’s Quote: “I counted 89 total deaths — some unlucky Avengers
+(Like Mar-Vell and Hawkeye) are basically Meat Loaf with an E-ZPass —
+and on 57 occasions the individual made a comeback.”
 
 Alexander’s Quote:
 
@@ -199,6 +201,32 @@ statement
 Grace’s Code:
 
 Jyotika’s Code:
+
+``` r
+total_deaths <- deaths |> 
+  filter(Death == "YES") |> 
+  summarise(count_deaths = n())
+
+total_returns <- returns |> 
+  filter(Return == "YES") |> 
+  summarise(count_returns = n())
+
+total_deaths
+```
+
+    ## # A tibble: 1 × 1
+    ##   count_deaths
+    ##          <int>
+    ## 1          145
+
+``` r
+total_returns
+```
+
+    ## # A tibble: 1 × 1
+    ##   count_returns
+    ##           <int>
+    ## 1            77
 
 Alexander’s Code:
 
@@ -212,6 +240,8 @@ team.
 
 Grace’s Discussion:
 
-Jyotika’s Discussion:
+Jyotika’s Discussion: It seems the total deaths are 145 and from this
+total deaths and there were 77 returns which means the article is
+incorrect in calculating the numbers.
 
 Alexander’s Discussion:
