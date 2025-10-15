@@ -201,6 +201,10 @@ the individual made a comeback.”
 
 Alexander’s Quote:
 
+“Given the Avengers’ 53 years in operation and overall mortality rate,
+fans of the comics can expect one current or former member to die every
+seven months or so”
+
 ### Include the code
 
 Make sure to include the code to derive the (numeric) fact for the
@@ -1342,3 +1346,14 @@ deaths are 89 and there were 57 returns, which means upon analysis, the
 quote is correct.
 
 Alexander’s Discussion:
+
+I first tested the assumption that the Avengers have been around for 53
+years. I found the max value data set for Years Since Joining to be 115,
+meaning the Avengers has been around since at least 115 years ago.
+However, the next highest group is 53 years meaning there could be some
+problem with the data that explains these outliers. Finding the number
+of months before a death with 53 years resulted in 7, which is the
+number provided in the article. However, with the 115 years it is
+instead every 15 months. After testing it seems that they are likely
+correct with their assumptions if 53 years is total number of years the
+Avengers has been around instead of 115.
