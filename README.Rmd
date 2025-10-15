@@ -35,7 +35,7 @@ Get the data into a format where the five columns for Death[1-5] are replaced by
 library(tidyverse)
 deaths <- av |>
   pivot_longer(
-    Death1:Death5,
+    c(Death1, Death2, Death3, Death4, Death5),
     names_to = "Time",
     values_to = "Death"
   ) |>
@@ -51,7 +51,7 @@ Similarly, deal with the returns of characters.
 ```{r}
 returns <- av |>
   pivot_longer(
-    Return1:Return5,
+    c(Return1, Return2, Return3, Return4, Return5),
     names_to = "Time",
     values_to = "Return"
   ) |>
@@ -69,8 +69,8 @@ deaths_clean <- deaths |>
   filter(Death != "")
 
 deaths_clean |> 
-  group_by(Name.Alias) |> 
-  summarise(total_deaths = sum(Death == "YES")) |> 
+  group_by(URL) |> 
+  summarise(total_deaths = sum(Death == "YES")) |>
   summarise(average_deaths = mean(total_deaths))
 ```
 
@@ -86,7 +86,13 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 
 Grace's Quote:
 
+<<<<<<< HEAD
 Jyotika's Quote: "I counted 89 total deaths — some unlucky Avengers (Like Mar-Vell and Hawkeye) are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback."
+=======
+“Out of 173 listed Avengers, my analysis found that 69 had died at least one time after they joined the team. That’s about 40 percent of all people who have ever signed on to the team.”
+
+Jyotika's Quote:
+>>>>>>> a1a4743d42efd9d9ba8011e66e6b7ada980c4457
 
 Alexander's Quote:
 
@@ -94,7 +100,24 @@ Alexander's Quote:
 
 Make sure to include the code to derive the (numeric) fact for the statement
 
-Grace's Code:
+Grace's Code: 
+
+
+```{r}
+library(dplyr)
+
+av %>%
+  summarise(
+    total_avengers = n(),
+    total_died = sum(Death1 == "YES", na.rm = TRUE),
+    percent_died = (total_died / total_avengers) * 100
+  )
+
+```
+
+
+
+
 
 Jyotika's Code:
 ```{r}
@@ -118,7 +141,9 @@ Include at least one sentence discussing the result of your fact-checking endeav
 
 Upload your changes to the repository. Discuss and refine answers as a team.
 
-Grace's Discussion:
+Grace's Discussion: 
+
+After running the code, I found that 69 of 173 Avengers have died at least once, giving a mortality rate of about 39.9%. This confirms FiveThirtyEight’s statement that approximately 40 percent of Avengers have died after joining the team. The numbers in the dataset align closely with the article’s findings, validating its analysis.
 
 Jyotika's Discussion: 
 

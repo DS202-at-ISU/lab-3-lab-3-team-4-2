@@ -77,8 +77,8 @@ library(tidyverse)
 
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-    ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-    ## ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+    ## ✔ forcats   1.0.1     ✔ stringr   1.5.1
+    ## ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
     ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
     ## ✔ purrr     1.1.0     
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -89,7 +89,7 @@ library(tidyverse)
 ``` r
 deaths <- av |>
   pivot_longer(
-    Death1:Death5,
+    c(Death1, Death2, Death3, Death4, Death5),
     names_to = "Time",
     values_to = "Death"
   ) |>
@@ -101,7 +101,7 @@ deaths <- av |>
 deaths
 ```
 
-    ## # A tibble: 1,557 × 14
+    ## # A tibble: 865 × 18
     ##    URL                Name.Alias Appearances Current. Gender Probationary.Introl
     ##    <chr>              <chr>            <int> <chr>    <chr>  <chr>              
     ##  1 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
@@ -109,22 +109,23 @@ deaths
     ##  3 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
     ##  4 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
     ##  5 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  6 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  7 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  8 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  9 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  6 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  7 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  8 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  9 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
     ## 10 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
-    ## # ℹ 1,547 more rows
-    ## # ℹ 8 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
-    ## #   Years.since.joining <int>, Honorary <chr>, Return5 <chr>, Notes <chr>,
-    ## #   Time <dbl>, Death <fct>
+    ## # ℹ 855 more rows
+    ## # ℹ 12 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
+    ## #   Years.since.joining <int>, Honorary <chr>, Return1 <chr>, Return2 <chr>,
+    ## #   Return3 <chr>, Return4 <chr>, Return5 <chr>, Notes <chr>, Time <dbl>,
+    ## #   Death <fct>
 
 Similarly, deal with the returns of characters.
 
 ``` r
 returns <- av |>
   pivot_longer(
-    Return1:Return5,
+    c(Return1, Return2, Return3, Return4, Return5),
     names_to = "Time",
     values_to = "Return"
   ) |>
@@ -136,7 +137,7 @@ returns <- av |>
 returns
 ```
 
-    ## # A tibble: 1,557 × 14
+    ## # A tibble: 865 × 18
     ##    URL                Name.Alias Appearances Current. Gender Probationary.Introl
     ##    <chr>              <chr>            <int> <chr>    <chr>  <chr>              
     ##  1 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
@@ -144,15 +145,16 @@ returns
     ##  3 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
     ##  4 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
     ##  5 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  6 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  7 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  8 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  9 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  6 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  7 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  8 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  9 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
     ## 10 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
-    ## # ℹ 1,547 more rows
-    ## # ℹ 8 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
-    ## #   Years.since.joining <int>, Honorary <chr>, Death1 <chr>, Notes <chr>,
-    ## #   Time <dbl>, Return <fct>
+    ## # ℹ 855 more rows
+    ## # ℹ 12 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
+    ## #   Years.since.joining <int>, Honorary <chr>, Death1 <chr>, Death2 <chr>,
+    ## #   Death3 <chr>, Death4 <chr>, Death5 <chr>, Notes <chr>, Time <dbl>,
+    ## #   Return <fct>
 
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
@@ -162,15 +164,15 @@ deaths_clean <- deaths |>
   filter(Death != "")
 
 deaths_clean |> 
-  group_by(Name.Alias) |> 
-  summarise(total_deaths = sum(Death == "YES")) |> 
+  group_by(URL) |> 
+  summarise(total_deaths = sum(Death == "YES")) |>
   summarise(average_deaths = mean(total_deaths))
 ```
 
     ## # A tibble: 1 × 1
     ##   average_deaths
     ##            <dbl>
-    ## 1          0.890
+    ## 1          0.514
 
 ## Individually
 
@@ -187,9 +189,17 @@ possible.
 
 Grace’s Quote:
 
+<<<<<<< HEAD
 Jyotika’s Quote: “I counted 89 total deaths — some unlucky Avengers
 (Like Mar-Vell and Hawkeye) are basically Meat Loaf with an E-ZPass —
 and on 57 occasions the individual made a comeback.”
+=======
+“Out of 173 listed Avengers, my analysis found that 69 had died at least
+one time after they joined the team. That’s about 40 percent of all
+people who have ever signed on to the team.”
+
+Jyotika’s Quote:
+>>>>>>> a1a4743d42efd9d9ba8011e66e6b7ada980c4457
 
 Alexander’s Quote:
 
@@ -199,6 +209,20 @@ Make sure to include the code to derive the (numeric) fact for the
 statement
 
 Grace’s Code:
+
+``` r
+library(dplyr)
+
+av %>%
+  summarise(
+    total_avengers = n(),
+    total_died = sum(Death1 == "YES", na.rm = TRUE),
+    percent_died = (total_died / total_avengers) * 100
+  )
+```
+
+    ##   total_avengers total_died percent_died
+    ## 1            173         69     39.88439
 
 Jyotika’s Code:
 
@@ -239,6 +263,12 @@ Upload your changes to the repository. Discuss and refine answers as a
 team.
 
 Grace’s Discussion:
+
+After running the code, I found that 69 of 173 Avengers have died at
+least once, giving a mortality rate of about 39.9%. This confirms
+FiveThirtyEight’s statement that approximately 40 percent of Avengers
+have died after joining the team. The numbers in the dataset align
+closely with the article’s findings, validating its analysis.
 
 Jyotika’s Discussion:
 
