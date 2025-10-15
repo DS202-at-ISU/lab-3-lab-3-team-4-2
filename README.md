@@ -157,6 +157,21 @@ returns
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
 
+``` r
+deaths_clean <- deaths |> 
+  filter(Death != "")
+
+deaths_clean |> 
+  group_by(Name.Alias) |> 
+  summarise(total_deaths = sum(Death == "YES")) |> 
+  summarise(average_deaths = mean(total_deaths))
+```
+
+    ## # A tibble: 1 × 1
+    ##   average_deaths
+    ##            <dbl>
+    ## 1          0.890
+
 ## Individually
 
 For each team member, copy this part of the report.
