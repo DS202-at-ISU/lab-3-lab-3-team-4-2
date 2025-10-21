@@ -77,8 +77,8 @@ library(tidyverse)
 
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-    ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-    ## ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+    ## ✔ forcats   1.0.1     ✔ stringr   1.5.2
+    ## ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
     ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
     ## ✔ purrr     1.1.0     
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -281,6 +281,88 @@ mpd53
 
     ## [1] 7.146067
 
+Marcus’ Code:
+
+``` r
+library(tidyverse)
+# install.packages("curl")
+
+av1 <- read_csv(
+  "https://raw.githubusercontent.com/fivethirtyeight/data/master/avengers/avengers.csv",
+  show_col_types = FALSE
+)
+
+av2 <- av1 |>
+  mutate(
+    died_any = if_any(starts_with("Death"), ~ .x == "YES"),
+    returned_any = if_any(starts_with("Return"), ~ .x == "YES")
+  )
+
+av2 |>
+  group_by(`Current?`) |>
+  summarise(
+    p_died = mean(died_any, na.rm = TRUE),
+    n = n()
+  )
+```
+
+    ## # A tibble: 2 × 3
+    ##   `Current?` p_died     n
+    ##   <chr>       <dbl> <int>
+    ## 1 NO              1    91
+    ## 2 YES             1    82
+
+``` r
+library(dplyr) 
+library(scales)
+```
+
+    ## 
+    ## Attaching package: 'scales'
+
+    ## The following object is masked from 'package:purrr':
+    ## 
+    ##     discard
+
+    ## The following object is masked from 'package:readr':
+    ## 
+    ##     col_factor
+
+``` r
+summ <- av2 |>
+  group_by(`Current?`) |>
+  summarise(
+    n = n(),
+    died = sum(died_any, na.rm = TRUE),
+    p_died = died / n,
+    .groups = "drop"
+  )
+
+summ
+```
+
+    ## # A tibble: 2 × 4
+    ##   `Current?`     n  died p_died
+    ##   <chr>      <int> <int>  <dbl>
+    ## 1 NO            91    44  0.484
+    ## 2 YES           82    25  0.305
+
+``` r
+prop.test(x = c(25, 44), n = c(82, 91))
+```
+
+    ## 
+    ##  2-sample test for equality of proportions with continuity correction
+    ## 
+    ## data:  c(25, 44) out of c(82, 91)
+    ## X-squared = 5.0199, df = 1, p-value = 0.02506
+    ## alternative hypothesis: two.sided
+    ## 95 percent confidence interval:
+    ##  -0.33330449 -0.02397238
+    ## sample estimates:
+    ##    prop 1    prop 2 
+    ## 0.3048780 0.4835165
+
 ### Include your answer
 
 Include at least one sentence discussing the result of your
@@ -316,3 +398,16 @@ number provided in the article. However, with the 115 years it is
 instead every 15 months. After testing it seems that they are likely
 correct with their assumptions if 53 years is total number of years the
 Avengers has been around instead of 115.
+
+Marcus’ Discussion:
+
+I tested whether current Avengers have fewer recorded deaths than former
+members. I marked a character as “died” if any of the death columns were
+“yes” Among current members, 25 of 82 (30.5%) have died at least once.
+Among non-current members, 44 of 91 (48.4%) have died. This is a 17.9
+percentage difference, and a two-sample proportion test indicates it is
+statistically significant with p = 0.025. Therefore, the data support
+the claim that current Avengers have lower historical death rates than
+former members. The article summary reports that around 40% and the
+Avengers have died at least once and is often temporary so this checks
+out
