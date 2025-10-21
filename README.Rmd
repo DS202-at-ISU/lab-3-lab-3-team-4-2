@@ -197,6 +197,31 @@ summ
 
 prop.test(x = c(25, 44), n = c(82, 91))
 ```
+### Tirtho’s Code
+
+```{r Tirtho, echo=TRUE}
+library(dplyr)
+
+# Count total Avengers
+total_avengers <- nrow(av)
+
+# Count how many have died at least once
+died_once <- av %>%
+  mutate(died_any = if_any(starts_with("Death"), ~ .x == "YES")) %>%
+  summarise(total_died = sum(died_any, na.rm = TRUE))
+
+# Calculate percentage of Avengers who died at least once
+percent_died <- (died_once$total_died / total_avengers) * 100
+
+# Print results
+total_avengers
+died_once
+percent_died
+
+###My Thought:
+After running the code, I found that 69 of 173 Avengers have died at least once, giving a mortality rate of about 40%.
+This confirms FiveThirtyEight’s statement that approximately 40 percent of Avengers have died after joining the team.
+The data supports the article’s claim and shows how many heroes in the dataset have been revived after their deaths.
 
 
 ### Include your answer
